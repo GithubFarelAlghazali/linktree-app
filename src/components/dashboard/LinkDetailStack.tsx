@@ -1,22 +1,24 @@
 "use client";
 import { PencilIcon, TrashIcon, X } from "lucide-react";
 import { useState } from "react";
+import { Button, HighlightButton } from "../ui/Button";
+import { TextInput } from "../ui/Input";
 
 export default function LinkDetailStack() {
 	const [isEdit, setEdit] = useState(false);
 	return (
-		<li className="flex justify-between bg-gray-900 p-3 rounded-md text-gray-200">
+		<li className="flex  justify-between items-start bg-gray-900 p-3 rounded-md text-gray-200">
 			{isEdit ? (
-				<form action="" className="*:focus:outline-0 ">
-					<input type="text" placeholder="Links name" />
-					<input type="text" placeholder="URL" />
-					<div className="*:cursor-pointer *:p-2 *:rounded-md mt-3 flex gap-2">
-						<button type="submit" className=" bg-gray-200 text-gray-900">
+				<form action="" className="*:focus:outline-0 [&_input]:border-b border-gray-200 *:mb-2">
+					<TextInput placeholder="Links name" id="name" />
+					<TextInput placeholder="URL" id="url" />
+					<div className=" mt-3 flex gap-2">
+						<HighlightButton reverse={true} type="submit">
 							Save
-						</button>
-						<button onClick={() => (isEdit ? setEdit(false) : setEdit(true))} type="button" className="outline-1 outline-gray-200">
+						</HighlightButton>
+						<Button reverse={true} onClick={() => (isEdit ? setEdit(false) : setEdit(true))} type="button">
 							Discard
-						</button>
+						</Button>
 					</div>
 				</form>
 			) : (
