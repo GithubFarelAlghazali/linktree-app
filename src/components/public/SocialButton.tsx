@@ -20,7 +20,7 @@ export default function SocialButton(props: { url: string; type: string }) {
 	}
 	return (
 		<Link href={url} className=" group">
-			<div className="group-hover:bg-gray-200 group-hover:outline-2 group-hover:outline-gray-900 group-hover:text-gray-900 p-2 w-fit rounded-full bg-gray-900 text-gray-200 transition duration-150 relative group">
+			<div className=" p-2 w-fit rounded-full bg-gray-900 text-gray-200 transition duration-200 relative group">
 				<Icon className="size-8 fill-current" />
 				<p className="text-[12px] bottom-0 text-center text-gray-900 absolute group-hover:-bottom-5 transition-all duration-150 left-0 right-0 opacity-0 group-hover:opacity-100">{type}</p>
 			</div>
