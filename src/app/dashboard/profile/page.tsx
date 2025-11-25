@@ -1,12 +1,14 @@
 "use client";
 import Image from "next/image";
-import { CameraIcon, X } from "lucide-react";
+import { CameraIcon } from "lucide-react";
 import { useState } from "react";
 import { Button, HighlightButton } from "@/components/ui/Button";
 import { TextInput } from "@/components/ui/Input";
+import getData from "@/lib/get-data";
 
-export default function ProfileManager() {
+export default async function ProfileManager() {
 	const [isEdit, setEdit] = useState(false);
+	const profileData = await getData;
 
 	return (
 		<section className=" p-5 w-[32em] rounded-xl outline-2 outline-gray-900 h-fit relative">
