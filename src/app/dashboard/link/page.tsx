@@ -1,4 +1,4 @@
-import LinkDetailStack from "./LinkDetailStack";
+import LinkDetailStack from "@/components/dashboard/LinkDetailStack";
 import { PlusIcon } from "lucide-react";
 
 export default function LinkManager() {

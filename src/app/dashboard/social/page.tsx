@@ -1,4 +1,4 @@
-import SocialDetailStack from "./SocialDetailStack";
+import SocialDetailStack from "@/components/dashboard/SocialDetailStack";
 import { PlusIcon } from "lucide-react";
 
 export default function SocialManager() {

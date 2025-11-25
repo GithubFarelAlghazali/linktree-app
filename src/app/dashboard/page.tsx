@@ -1,41 +1,5 @@
-"use client";
-import ProfileManager from "@/components/dashboard/ProfileManager";
-import LinkManager from "@/components/dashboard/LinkManager";
-import SocialManager from "@/components/dashboard/SocialManager";
-import { User, LinkIcon, Globe, View } from "lucide-react";
-import { useState } from "react";
-import Link from "next/link";
+import { redirect } from "next/navigation";
 
 export default function DashboardPage() {
-	const [menu, setMenu] = useState("profile");
-
-	const menuMap = {
-		profile: ProfileManager,
-		links: LinkManager,
-		social: SocialManager,
-	};
-	const Menu = menuMap[menu as keyof typeof menuMap];
-
-	return (
-		<main className="p-5 relative w-screen h-screen ">
-			<h1 className="text-3xl font-bold mb-5">Dashboard</h1>
-			<nav className="flex flex-col bg-gray-900 p-5 rounded-xl w-fit text-gray-200 gap-5 *:cursor-pointer h-fit absolute  ">
-				<button className={`${menu == "profile" ? "bg-gray-200 text-gray-900 rounded-full" : ""}  p-2`} onClick={() => setMenu("profile")} title="Profile Settings">
-					<User />
-				</button>
-				<button className={`${menu == "social" ? "bg-gray-200 text-gray-900 rounded-full" : ""}  p-2`} onClick={() => setMenu("social")} title="Social Media Settings">
-					<Globe />
-				</button>
-				<button className={`${menu == "links" ? "bg-gray-200 text-gray-900 rounded-full" : ""}  p-2`} onClick={() => setMenu("links")} title="Links Settings">
-					<LinkIcon />
-				</button>
-				<Link href="/" target="__blank" className="p-2" title="View Result">
-					<View />
-				</Link>
-			</nav>
-			<div className="ml-24">
-				<Menu />
-			</div>
-		</main>
-	);
+	redirect("/dashboard/profile");
 }

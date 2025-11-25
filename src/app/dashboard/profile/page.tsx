@@ -2,8 +2,8 @@
 import Image from "next/image";
 import { CameraIcon, X } from "lucide-react";
 import { useState } from "react";
-import { Button, HighlightButton } from "../ui/Button";
-import { TextInput } from "../ui/Input";
+import { Button, HighlightButton } from "@/components/ui/Button";
+import { TextInput } from "@/components/ui/Input";
 
 export default function ProfileManager() {
 	const [isEdit, setEdit] = useState(false);
