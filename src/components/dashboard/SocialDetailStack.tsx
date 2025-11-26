@@ -49,10 +49,10 @@ export default function SocialDetailStack(props: { type: string; url: string }) 
 					</div>
 				</form>
 			) : (
-				<section className=" grid grid-cols-[auto,1fr] grid-rows-2 gap-x-2 gap-y-0">
+				<section className="overflow-hidden grid grid-cols-[auto,1fr] grid-rows-2 gap-x-2 gap-y-0">
 					<Icon className="row-span-2 size-12" />
 					<h3 className="text-lg">{formType}</h3>
-					<p className="col-start-2">{formUrl}</p>
+					<p className="col-start-2 ">{formUrl}</p>
 				</section>
 			)}
 			<aside className="flex gap-2 *:cursor-pointer">
