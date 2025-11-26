@@ -1,15 +1,7 @@
 import { NextRequest, NextResponse } from "next/server";
+import retrieveData from "@/lib/firebase/services/retrieveData";
 
 export async function GET(request: NextRequest) {
-	const links = [
-		{
-			name: "About me",
-			url: "https://farelghazali.vercel.app",
-		},
-		{
-			name: "Potfolio",
-			url: "https://farelghazali.vercel.app",
-		},
-	];
+	const links = await retrieveData("links");
 	return NextResponse.json({ status: 200, message: "Success", data: { links } });
 }
