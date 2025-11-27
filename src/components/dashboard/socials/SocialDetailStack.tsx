@@ -23,7 +23,7 @@ export default function SocialDetailStack(props: { type: string; url: string; id
 		TikTok: FaTiktok,
 	};
 
-	const Icon = iconsMap[formType as keyof typeof iconsMap];
+	const Icon = iconsMap[type as keyof typeof iconsMap];
 	if (!Icon) {
 		return null;
 	}
@@ -65,8 +65,8 @@ export default function SocialDetailStack(props: { type: string; url: string; id
 			) : (
 				<section className="overflow-hidden grid grid-cols-[auto,1fr] grid-rows-2 gap-x-2 gap-y-0">
 					<Icon className="row-span-2 size-12" />
-					<h3 className="text-lg">{formType}</h3>
-					<p className="col-start-2 ">{formUrl}</p>
+					<h3 className="text-lg">{type}</h3>
+					<p className="col-start-2 ">{url}</p>
 				</section>
 			)}
 			<aside className="flex gap-2 *:cursor-pointer">

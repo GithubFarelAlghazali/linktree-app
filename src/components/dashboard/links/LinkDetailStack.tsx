@@ -41,8 +41,8 @@ export default function LinkDetailStack(props: { url: string; name: string; id: 
 				</form>
 			) : (
 				<section className="w-full overflow-hidden">
-					<h3 className="text-lg">{formName}</h3>
-					<p>{formUrl}</p>
+					<h3 className="text-lg">{name}</h3>
+					<p>{url}</p>
 				</section>
 			)}
 			<aside className="flex gap-2 *:cursor-pointer">
