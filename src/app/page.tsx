@@ -7,6 +7,7 @@ export default async function Home() {
 	const profile = (await getData("http://localhost:3000/api/get-profile")).data?.userProfile[0];
 	const socials = (await getData("http://localhost:3000/api/get-socials")).data?.socials;
 	const links = (await getData("http://localhost:3000/api/get-links")).data?.links;
+	console.log(links);
 
 	return (
 		<main className="p-5 mx-auto w-fit">
