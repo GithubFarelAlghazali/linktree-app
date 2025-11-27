@@ -1,6 +1,6 @@
 "use client";
 import { useState } from "react";
-import { TrashIcon, X, PencilIcon } from "lucide-react";
+import { TrashIcon, PencilIcon } from "lucide-react";
 import { Button, HighlightButton } from "@/components/ui/Button";
 import { TextInput } from "@/components/ui/Input";
 import { FaGithub, FaLinkedin, FaYoutube, FaWhatsapp, FaInstagram, FaDiscord, FaFacebook, FaTiktok } from "react-icons/fa";
@@ -13,16 +13,17 @@ export default function SocialDetailStack(props: { type: string; url: string; id
 	const [formUrl, setUrl] = useState(url);
 
 	const iconsMap = {
-		github: FaGithub,
-		linkedin: FaLinkedin,
-		youtube: FaYoutube,
-		whatsapp: FaWhatsapp,
-		instagram: FaInstagram,
-		discord: FaDiscord,
-		facebook: FaFacebook,
-		tiktok: FaTiktok,
+		GitHub: FaGithub,
+		LinkedIn: FaLinkedin,
+		YouTube: FaYoutube,
+		WhatsApp: FaWhatsapp,
+		Instagram: FaInstagram,
+		Discord: FaDiscord,
+		Facebook: FaFacebook,
+		TikTok: FaTiktok,
 	};
-	const Icon = iconsMap[formType.toLowerCase() as keyof typeof iconsMap];
+
+	const Icon = iconsMap[formType as keyof typeof iconsMap];
 	if (!Icon) {
 		return null;
 	}
@@ -56,7 +57,7 @@ export default function SocialDetailStack(props: { type: string; url: string; id
 						<HighlightButton reverse={true} type="submit">
 							Save
 						</HighlightButton>
-						<Button reverse={true} onClick={() => (isEdit ? setEdit(false) : setEdit(true))} type="button">
+						<Button reverse={true} onClick={() => setEdit(false)} type="button">
 							Discard
 						</Button>
 					</div>
@@ -69,7 +70,7 @@ export default function SocialDetailStack(props: { type: string; url: string; id
 				</section>
 			)}
 			<aside className="flex gap-2 *:cursor-pointer">
-				<button onClick={() => (isEdit ? setEdit(false) : setEdit(true))}>{isEdit ? <X /> : <PencilIcon />}</button>
+				<button onClick={() => setEdit(true)}>{isEdit ? "" : <PencilIcon />}</button>
 				<button>
 					<TrashIcon />
 				</button>

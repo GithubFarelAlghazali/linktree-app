@@ -1,5 +1,5 @@
 import SocialDetailStack from "@/components/dashboard/socials/SocialDetailStack";
-import { PlusIcon } from "lucide-react";
+import AddNewSocial from "@/components/dashboard/socials/AddNewSocial";
 import getData from "@/lib/get-data";
 
 export default async function SocialManager() {
@@ -9,12 +9,12 @@ export default async function SocialManager() {
 		<section className=" p-5 w-96 rounded-xl outline-2 outline-gray-900 h-fit relative">
 			<h2 className="text-xl mb-4">Socials</h2>
 			<ul className="flex flex-col gap-2">
-				{social ? social.map((soc: { type: string; url: string; id: string }) => <SocialDetailStack type={soc.type} url={soc.url} key={soc.id} id={soc.id} />) : ""}
-				<li>
-					<button className="cursor-pointer flex gap-2 transition-all duration-150 bg-gray-900 text-gray-200 hover:bg-gray-200 hover:text-gray-900 hover:outline-2 outline-gray-900 p-3 rounded-md">
-						Add social media <PlusIcon />
-					</button>
-				</li>
+				{social.length > 0 ? (
+					social.map((soc: { type: string; url: string; id: string }) => <SocialDetailStack type={soc.type} url={soc.url} key={soc.id} id={soc.id} />)
+				) : (
+					<li className="p-3 rounded-md outline-2 outline-gray-900 text-center">Start to add social media link</li>
+				)}
+				<AddNewSocial />
 			</ul>
 		</section>
 	);
