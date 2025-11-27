@@ -6,7 +6,7 @@ import getData from "@/lib/get-data";
 export default async function Home() {
 	const profile = (await getData("http://localhost:3000/api/get-profile")).data?.userProfile[0];
 	const socials = (await getData("http://localhost:3000/api/get-socials")).data?.socials;
-	const links = (await getData("http://localhost:3000/api/get-links")).data?.links;
+	const links = (await getData("http://localhost:3000/api/links/get-links")).data?.links;
 	console.log(links);
 
 	return (

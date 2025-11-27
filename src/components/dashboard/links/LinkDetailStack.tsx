@@ -1,8 +1,8 @@
 "use client";
 import { PencilIcon, TrashIcon, X } from "lucide-react";
 import { useState } from "react";
-import { Button, HighlightButton } from "../ui/Button";
-import { TextInput } from "../ui/Input";
+import { Button, HighlightButton } from "../../ui/Button";
+import { TextInput } from "../../ui/Input";
 
 export default function LinkDetailStack(props: { url: string; name: string; id: string }) {
 	const { url, name, id } = props;
@@ -13,7 +13,7 @@ export default function LinkDetailStack(props: { url: string; name: string; id: 
 
 	const handleSubmit = async (e) => {
 		e.preventDefault();
-		const res = await fetch("/api/update-link", {
+		const res = await fetch("/api/links/update-link", {
 			method: "POST",
 			body: JSON.stringify({
 				id,

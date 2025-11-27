@@ -1,15 +1,15 @@
 "use client";
 import { PlusIcon } from "lucide-react";
 import { useState } from "react";
-import { TextInput } from "../ui/Input";
-import { HighlightButton, Button } from "../ui/Button";
+import { TextInput } from "../../ui/Input";
+import { HighlightButton, Button } from "../../ui/Button";
 
 export default function AddNewLink() {
 	const [isAdd, setAddStatus] = useState(false);
 
 	const handleSubmit = async (e) => {
 		e.preventDefault();
-		const res = await fetch("/api/add-link", {
+		const res = await fetch("/api/links/add-link", {
 			method: "POST",
 			body: JSON.stringify({
 				name: e.target.name.value,

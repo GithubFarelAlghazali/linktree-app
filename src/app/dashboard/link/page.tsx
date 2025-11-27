@@ -1,9 +1,9 @@
-import LinkDetailStack from "@/components/dashboard/LinkDetailStack";
-import AddNewLink from "@/components/dashboard/AddNewLink";
+import LinkDetailStack from "@/components/dashboard/links/LinkDetailStack";
+import AddNewLink from "@/components/dashboard/links/AddNewLink";
 import getData from "@/lib/get-data";
 
 export default async function LinkManager() {
-	const links = (await getData("http://localhost:3000/api/get-links")).data?.links;
+	const links = (await getData("http://localhost:3000/api/links/get-links")).data?.links;
 
 	return (
 		<section className="h-fit w-96 p-5 rounded-xl outline-2 outline-gray-900">
