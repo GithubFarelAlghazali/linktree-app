@@ -5,8 +5,8 @@ import { Button, HighlightButton } from "@/components/ui/Button";
 import { TextInput } from "@/components/ui/Input";
 import { FaGithub, FaLinkedin, FaYoutube, FaWhatsapp, FaInstagram, FaDiscord, FaFacebook, FaTiktok } from "react-icons/fa";
 
-export default function SocialDetailStack(props: { type: string; url: string; id: string }) {
-	const { type, url, id } = props;
+export default function SocialDetailStack(props: { type: string; url: string; id: string; refreshPage: () => void }) {
+	const { type, url, id, refreshPage } = props;
 	const [isEdit, setEdit] = useState(false);
 
 	const [formType, setType] = useState(type);
@@ -38,17 +38,19 @@ export default function SocialDetailStack(props: { type: string; url: string; id
 				url: e.target.url.value,
 			}),
 		});
-		console.log(res);
+		setEdit(false);
+		refreshPage();
 	};
 
 	const deleteData = async () => {
-		const res = await fetch("/api/socials/delete-social", {
+		await fetch("/api/socials/delete-social", {
 			method: "POST",
 			body: JSON.stringify({
 				id,
 			}),
 		});
-		console.log(res);
+		setEdit(false);
+		refreshPage();
 	};
 
 	return (

@@ -5,7 +5,8 @@ import { TextInput } from "@/components/ui/Input";
 import { FaGithub, FaLinkedin, FaYoutube, FaWhatsapp, FaInstagram, FaDiscord, FaFacebook, FaTiktok } from "react-icons/fa";
 import { Button, HighlightButton } from "@/components/ui/Button";
 
-export default function AddNewSocial() {
+export default function AddNewSocial(props: { refreshPage: () => void }) {
+	const { refreshPage } = props;
 	const [isAdd, setAdd] = useState(false);
 
 	const iconsMap = {
@@ -21,14 +22,15 @@ export default function AddNewSocial() {
 
 	const handleSubmit = async (e) => {
 		e.preventDefault();
-		const res = await fetch("/api/socials/add-social", {
+		await fetch("/api/socials/add-social", {
 			method: "POST",
 			body: JSON.stringify({
 				type: e.target.socialType.value,
 				url: e.target.url.value,
 			}),
 		});
-		console.log(res);
+		setAdd(false);
+		refreshPage();
 	};
 
 	return (
