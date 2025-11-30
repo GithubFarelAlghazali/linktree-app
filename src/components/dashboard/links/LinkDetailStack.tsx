@@ -4,8 +4,8 @@ import { useState } from "react";
 import { Button, HighlightButton } from "../../ui/Button";
 import { TextInput } from "../../ui/Input";
 
-export default function LinkDetailStack(props: { url: string; name: string; id: string }) {
-	const { url, name, id } = props;
+export default function LinkDetailStack(props: { url: string; name: string; id: string; refreshPage: () => void }) {
+	const { url, name, id, refreshPage } = props;
 	const [isEdit, setEdit] = useState(false);
 
 	const [formName, setFormName] = useState(name);
@@ -13,7 +13,7 @@ export default function LinkDetailStack(props: { url: string; name: string; id: 
 
 	const handleSubmit = async (e) => {
 		e.preventDefault();
-		const res = await fetch("/api/links/update-link", {
+		await fetch("/api/links/update-link", {
 			method: "POST",
 			body: JSON.stringify({
 				id,
@@ -21,17 +21,19 @@ export default function LinkDetailStack(props: { url: string; name: string; id: 
 				url: e.target.url.value,
 			}),
 		});
-		console.log(res);
+		refreshPage();
+		setEdit(false);
 	};
 
 	const deleteData = async () => {
-		const res = await fetch("/api/links/delete-link", {
+		await fetch("/api/links/delete-link", {
 			method: "POST",
 			body: JSON.stringify({
 				id,
 			}),
 		});
-		console.log(res);
+		refreshPage();
+		setEdit(false);
 	};
 
 	return (

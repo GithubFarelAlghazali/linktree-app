@@ -4,19 +4,21 @@ import { useState } from "react";
 import { TextInput } from "../../ui/Input";
 import { HighlightButton, Button } from "../../ui/Button";
 
-export default function AddNewLink() {
+export default function AddNewLink(props: { refreshPage: () => void }) {
+	const { refreshPage } = props;
 	const [isAdd, setAddStatus] = useState(false);
 
 	const handleSubmit = async (e) => {
 		e.preventDefault();
-		const res = await fetch("/api/links/add-link", {
+		await fetch("/api/links/add-link", {
 			method: "POST",
 			body: JSON.stringify({
 				name: e.target.name.value,
 				url: e.target.url.value,
 			}),
 		});
-		console.log(res);
+		refreshPage();
+		setAddStatus(false);
 	};
 	return (
 		<li>

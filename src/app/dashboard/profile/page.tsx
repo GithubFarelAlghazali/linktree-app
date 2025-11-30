@@ -6,7 +6,6 @@ import useSWR from "swr";
 export default function ProfileManager() {
 	const { data, mutate } = useSWR("/api/profile/get-profile", fetcher);
 	const dataProfile = data?.data?.userProfile[0];
-	console.log(dataProfile);
 
 	return (
 		<div>
