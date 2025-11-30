@@ -41,6 +41,16 @@ export default function SocialDetailStack(props: { type: string; url: string; id
 		console.log(res);
 	};
 
+	const deleteData = async () => {
+		const res = await fetch("/api/socials/delete-social", {
+			method: "POST",
+			body: JSON.stringify({
+				id,
+			}),
+		});
+		console.log(res);
+	};
+
 	return (
 		<li className="flex  justify-between items-start bg-gray-900 p-3 rounded-md text-gray-200">
 			{isEdit ? (
@@ -71,7 +81,7 @@ export default function SocialDetailStack(props: { type: string; url: string; id
 			)}
 			<aside className="flex gap-2 *:cursor-pointer">
 				<button onClick={() => setEdit(true)}>{isEdit ? "" : <PencilIcon />}</button>
-				<button>
+				<button onClick={deleteData}>
 					<TrashIcon />
 				</button>
 			</aside>

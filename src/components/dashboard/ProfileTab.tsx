@@ -1,17 +1,22 @@
 "use client";
 import Image from "next/image";
 import { CameraIcon } from "lucide-react";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { Button, HighlightButton } from "@/components/ui/Button";
 import { TextInput } from "@/components/ui/Input";
 
-export default function ProfileTab(props: { name: string; bio: string }) {
-	const { name, bio } = props;
+export default function ProfileTab(props: { name: string; bio: string; refreshProfile: () => void }) {
+	const { name, bio, refreshProfile } = props;
 
-	const [formName, setName] = useState(name);
-	const [formBio, setBio] = useState(bio);
+	const [formName, setName] = useState(name || "");
+	const [formBio, setBio] = useState(bio || "");
 	const [isEdit, setEdit] = useState(false);
 	const [previewImage, setPreviewImage] = useState("/images/image.png");
+
+	useEffect(() => {
+		if (name) setName(name);
+		if (bio) setBio(bio);
+	}, [name, bio]);
 
 	const handleImageChange = (e: React.ChangeEvent<HTMLInputElement>) => {
 		const file = e.target.files?.[0];
@@ -23,14 +28,17 @@ export default function ProfileTab(props: { name: string; bio: string }) {
 
 	const handleSubmit = async (e) => {
 		e.preventDefault();
-		const res = await fetch("/api/profile/set-profile", {
+
+		await fetch("/api/profile/set-profile", {
 			method: "POST",
 			body: JSON.stringify({
 				name: e.target.name.value,
 				bio: e.target.bio.value,
 			}),
 		});
-		console.log(res);
+
+		refreshProfile();
+		setEdit(false);
 	};
 
 	return (
@@ -52,7 +60,15 @@ export default function ProfileTab(props: { name: string; bio: string }) {
 					</aside>
 					<div className="flex gap-2 absolute bottom-5 right-5">
 						<HighlightButton type="submit">Save</HighlightButton>
-						<Button>Discard</Button>
+						<Button
+							onClick={() => {
+								setEdit(false);
+								setName(name);
+								setBio(bio);
+							}}
+						>
+							Discard
+						</Button>
 					</div>
 				</form>
 			) : (

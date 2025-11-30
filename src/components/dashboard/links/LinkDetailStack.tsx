@@ -24,6 +24,16 @@ export default function LinkDetailStack(props: { url: string; name: string; id: 
 		console.log(res);
 	};
 
+	const deleteData = async () => {
+		const res = await fetch("/api/links/delete-link", {
+			method: "POST",
+			body: JSON.stringify({
+				id,
+			}),
+		});
+		console.log(res);
+	};
+
 	return (
 		<li className="flex  justify-between items-start bg-gray-900 p-3 rounded-md text-gray-200">
 			{isEdit ? (
@@ -34,7 +44,7 @@ export default function LinkDetailStack(props: { url: string; name: string; id: 
 						<HighlightButton reverse={true} type="submit">
 							Save
 						</HighlightButton>
-						<Button reverse={true} onClick={() => (isEdit ? setEdit(false) : setEdit(true))} type="button">
+						<Button reverse={true} onClick={() => setEdit(false)} type="button">
 							Discard
 						</Button>
 					</div>
@@ -48,7 +58,7 @@ export default function LinkDetailStack(props: { url: string; name: string; id: 
 			<aside className="flex gap-2 *:cursor-pointer">
 				<button onClick={() => (isEdit ? setEdit(false) : setEdit(true))}>{isEdit ? <X /> : <PencilIcon />}</button>
 				<button>
-					<TrashIcon />
+					<TrashIcon onClick={deleteData} />
 				</button>
 			</aside>
 		</li>

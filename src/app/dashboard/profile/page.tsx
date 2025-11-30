@@ -1,12 +1,16 @@
-import getData from "@/lib/get-data";
+"use client";
 import ProfileTab from "@/components/dashboard/ProfileTab";
+import fetcher from "@/lib/swr/fetcher";
+import useSWR from "swr";
 
-export default async function ProfileManager() {
-	const profileData = (await getData("http://localhost:3000/api/profile/get-profile")).data?.userProfile[0];
+export default function ProfileManager() {
+	const { data, mutate } = useSWR("/api/profile/get-profile", fetcher);
+	const dataProfile = data?.data?.userProfile[0];
+	console.log(dataProfile);
 
 	return (
 		<div>
-			<ProfileTab name={profileData.name} bio={profileData.bio} />
+			<ProfileTab name={dataProfile?.name} bio={dataProfile?.bio} refreshProfile={mutate} />
 		</div>
 	);
 }
