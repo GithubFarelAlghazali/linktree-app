@@ -3,6 +3,7 @@ import type { Metadata } from "next";
 import "./globals.css";
 import { UIProvider } from "@/context/ModalContext";
 import { NotifModal } from "@/components/ui/Notif";
+import { ConfirmModal } from "@/components/ui/Confirm";
 
 export const metadata: Metadata = {
 	title: "Linktree",
@@ -20,6 +21,7 @@ export default function RootLayout({
 				<UIProvider>
 					{children}
 					<NotifModal />
+					<ConfirmModal />
 				</UIProvider>
 			</body>
 		</html>

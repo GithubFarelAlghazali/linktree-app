@@ -45,9 +45,16 @@ export default function ProfileTab(props: { name: string; bio: string; refreshPr
 	};
 
 	const handleDiscard = () => {
-		setEdit(false);
-		setName(name);
-		setBio(bio);
+		showConfirm(
+			"Discard changes?",
+			() => {
+				setEdit(false);
+			},
+			() => {
+				setName(name);
+				setBio(bio);
+			}
+		);
 	};
 
 	return (
