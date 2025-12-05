@@ -1,7 +1,8 @@
 import type { Metadata } from "next";
 // import { Geist, Geist_Mono } from "next/font/google";
 import "./globals.css";
-import { ModalBox } from "@/components/ui/Modal";
+import { UIProvider } from "@/context/ModalContext";
+import { NotifModal } from "@/components/ui/Notif";
 
 export const metadata: Metadata = {
 	title: "Linktree",
@@ -16,9 +17,10 @@ export default function RootLayout({
 	return (
 		<html lang="en">
 			<body className={`bg-gray-200 font-mono antialiased text-gray-900 relative`}>
-				{/* <ModalBox message="okee" /> */}
-
-				{children}
+				<UIProvider>
+					{children}
+					<NotifModal />
+				</UIProvider>
 			</body>
 		</html>
 	);

@@ -4,9 +4,11 @@ import { CameraIcon } from "lucide-react";
 import { useState, useEffect } from "react";
 import { Button, HighlightButton } from "@/components/ui/Button";
 import { TextInput } from "@/components/ui/Input";
+import { useUI } from "@/context/ModalContext";
 
 export default function ProfileTab(props: { name: string; bio: string; refreshProfile: () => void }) {
 	const { name, bio, refreshProfile } = props;
+	const { showNotif, showConfirm } = useUI();
 
 	const [formName, setName] = useState(name || "");
 	const [formBio, setBio] = useState(bio || "");
@@ -39,6 +41,13 @@ export default function ProfileTab(props: { name: string; bio: string; refreshPr
 
 		refreshProfile();
 		setEdit(false);
+		showNotif("Success edit profile!");
+	};
+
+	const handleDiscard = () => {
+		setEdit(false);
+		setName(name);
+		setBio(bio);
 	};
 
 	return (
@@ -62,9 +71,7 @@ export default function ProfileTab(props: { name: string; bio: string; refreshPr
 						<HighlightButton type="submit">Save</HighlightButton>
 						<Button
 							onClick={() => {
-								setEdit(false);
-								setName(name);
-								setBio(bio);
+								handleDiscard();
 							}}
 						>
 							Discard
