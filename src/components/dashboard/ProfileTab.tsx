@@ -5,6 +5,7 @@ import { useState, useEffect } from "react";
 import { Button, HighlightButton } from "@/components/ui/Button";
 import { TextInput } from "@/components/ui/Input";
 import { useUI } from "@/context/ModalContext";
+import handleSubmit from "@/lib/handleSubmit";
 
 export default function ProfileTab(props: { name: string; bio: string; refreshProfile: () => void }) {
 	const { name, bio, refreshProfile } = props;
@@ -28,20 +29,12 @@ export default function ProfileTab(props: { name: string; bio: string; refreshPr
 		setPreviewImage(imageUrl);
 	};
 
-	const handleSubmit = async (e) => {
-		e.preventDefault();
-
-		await fetch("/api/profile/set-profile", {
-			method: "POST",
-			body: JSON.stringify({
-				name: e.target.name.value,
-				bio: e.target.bio.value,
-			}),
+	const updateProfile = (e: any) => {
+		handleSubmit(e, "/api/profile/set-profile", () => {
+			refreshProfile();
+			setEdit(false);
+			showNotif("Success edit profile!");
 		});
-
-		refreshProfile();
-		setEdit(false);
-		showNotif("Success edit profile!");
 	};
 
 	const handleDiscard = () => {
@@ -61,7 +54,7 @@ export default function ProfileTab(props: { name: string; bio: string; refreshPr
 		<section className=" p-5 w-[32em] rounded-xl outline-2 outline-gray-900 h-fit relative">
 			<h2 className="text-xl mb-4">Profile</h2>
 			{isEdit ? (
-				<form className="flex  gap-2" onSubmit={handleSubmit}>
+				<form className="flex  gap-2" onSubmit={updateProfile}>
 					<section className="bg-gray-900 rounded-md p-5  text-gray-200 relative">
 						<Image className="rounded-full outline-1 outline-gray-200" src={previewImage} width={500} height={500} alt="profile image" />
 						<label htmlFor="profile" className="flex-col flex justify-center items-center absolute top-5 right-5 left-5 bottom-5 bg-[rgba(0,0,0,0.5)] rounded-full ">
