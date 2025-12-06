@@ -18,7 +18,7 @@ export default function LinkManager() {
 				) : links?.length > 0 ? (
 					links?.map((link: { id: string; url: string; name: string }) => <LinkDetailStack key={link.id} id={link.id} url={link.url} name={link.name} refreshPage={mutate} />)
 				) : (
-					<li className="p-3 outline-1 rounded-md text-center">Start to add a link</li>
+					<li className="p-3 outline-2 rounded-md text-center">Start to add a link</li>
 				)}
 				<AddNewLink refreshPage={mutate} />
 			</ul>
