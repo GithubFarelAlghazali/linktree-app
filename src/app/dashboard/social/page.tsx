@@ -8,6 +8,7 @@ import LoadingStack from "@/components/ui/LoadingStack";
 export default function SocialManager() {
 	const { data, mutate, isLoading } = useSWR("/api/socials/get", fetcher);
 	const social = data?.data?.socials;
+	console.log(social);
 
 	return (
 		<section className=" p-5 w-96 rounded-xl outline-2 outline-gray-900 h-fit relative">
@@ -16,7 +17,7 @@ export default function SocialManager() {
 				{isLoading ? (
 					<LoadingStack />
 				) : social?.length != 0 ? (
-					social?.map((soc: { type: string; url: string; id: string }) => <SocialDetailStack refreshPage={mutate} type={soc.type} url={soc.url} key={soc.id} id={soc.id} />)
+					social?.map((soc: { socialType: string; url: string; id: string }) => <SocialDetailStack refreshPage={mutate} type={soc.socialType} url={soc.url} key={soc.id} id={soc.id} />)
 				) : (
 					<li className="p-3 rounded-md outline-2 outline-gray-900 text-center">Start to add social media link</li>
 				)}

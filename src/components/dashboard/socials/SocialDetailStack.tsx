@@ -1,9 +1,10 @@
 "use client";
 import { useState } from "react";
-import { TrashIcon, PencilIcon } from "lucide-react";
-import { Button, HighlightButton } from "@/components/ui/Button";
+import { PencilIcon } from "lucide-react";
 import { TextInput } from "@/components/ui/Input";
 import { FaGithub, FaLinkedin, FaYoutube, FaWhatsapp, FaInstagram, FaDiscord, FaFacebook, FaTiktok } from "react-icons/fa";
+import Form from "@/components/ui/Form";
+import DeleteButton from "@/components/ui/DeleteButton";
 
 export default function SocialDetailStack(props: { type: string; url: string; id: string; refreshPage: () => void }) {
 	const { type, url, id, refreshPage } = props;
@@ -28,35 +29,10 @@ export default function SocialDetailStack(props: { type: string; url: string; id
 		return null;
 	}
 
-	const handleSubmit = async (e) => {
-		e.preventDefault();
-		const res = await fetch("/api/socials/update-social", {
-			method: "POST",
-			body: JSON.stringify({
-				id,
-				type: e.target.socialType.value,
-				url: e.target.url.value,
-			}),
-		});
-		setEdit(false);
-		refreshPage();
-	};
-
-	const deleteData = async () => {
-		await fetch("/api/socials/delete-social", {
-			method: "POST",
-			body: JSON.stringify({
-				id,
-			}),
-		});
-		setEdit(false);
-		refreshPage();
-	};
-
 	return (
 		<li className="flex  justify-between items-start bg-gray-900 p-3 rounded-md text-gray-200">
 			{isEdit ? (
-				<form action="" className="*:focus:outline-0 [&_input]:border-b border-gray-200 *:mb-2" onSubmit={handleSubmit}>
+				<Form refreshPage={refreshPage} formEndpoint="/api/socials/update" successMessage="Link updated successfully!" resetFormStatus={refreshPage}>
 					<select name="socialType" id="socialType" className=" p-2 rounded-md  bg-gray-900" defaultValue={formType} onChange={(e) => setType(e.target.value)}>
 						{Object.keys(iconsMap).map((key) => (
 							<option key={key} value={key}>
@@ -65,15 +41,7 @@ export default function SocialDetailStack(props: { type: string; url: string; id
 						))}
 					</select>
 					<TextInput placeholder="URL" id="url" value={formUrl} onChange={(e) => setUrl(e.target.value)} />
-					<div className=" mt-3 flex gap-2">
-						<HighlightButton reverse={true} type="submit">
-							Save
-						</HighlightButton>
-						<Button reverse={true} onClick={() => setEdit(false)} type="button">
-							Discard
-						</Button>
-					</div>
-				</form>
+				</Form>
 			) : (
 				<section className="overflow-hidden grid grid-cols-[auto,1fr] grid-rows-2 gap-x-2 gap-y-0">
 					<Icon className="row-span-2 size-12" />
@@ -83,9 +51,7 @@ export default function SocialDetailStack(props: { type: string; url: string; id
 			)}
 			<aside className="flex gap-2 *:cursor-pointer">
 				<button onClick={() => setEdit(true)}>{isEdit ? "" : <PencilIcon />}</button>
-				<button onClick={deleteData}>
-					<TrashIcon />
-				</button>
+				<DeleteButton endpoint="/api/socials/delete" id={id} deleteAction={refreshPage} successMessage="Success remove social media!" />
 			</aside>
 		</li>
 	);
