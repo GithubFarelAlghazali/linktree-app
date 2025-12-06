@@ -10,6 +10,7 @@ import handleSubmit from "@/lib/handleSubmit";
 export default function ProfileTab(props: { name: string; bio: string; refreshProfile: () => void }) {
 	const { name, bio, refreshProfile } = props;
 	const { showNotif, showConfirm } = useUI();
+	const [changed, setChanged] = useState(false);
 
 	const [formName, setName] = useState(name || "");
 	const [formBio, setBio] = useState(bio || "");
@@ -29,32 +30,20 @@ export default function ProfileTab(props: { name: string; bio: string; refreshPr
 		setPreviewImage(imageUrl);
 	};
 
-	const updateProfile = (e: any) => {
-		handleSubmit(e, "/api/profile/set-profile", () => {
-			refreshProfile();
-			setEdit(false);
-			showNotif("Success edit profile!");
-		});
-	};
-
-	const handleDiscard = () => {
-		showConfirm(
-			"Discard changes?",
-			() => {
-				setEdit(false);
-			},
-			() => {
-				setName(name);
-				setBio(bio);
-			}
-		);
-	};
-
 	return (
 		<section className=" p-5 w-[32em] rounded-xl outline-2 outline-gray-900 h-fit relative">
 			<h2 className="text-xl mb-4">Profile</h2>
 			{isEdit ? (
-				<form className="flex  gap-2" onSubmit={updateProfile}>
+				<form
+					className="flex  gap-2"
+					onChange={() => setChanged(true)}
+					onSubmit={(e) =>
+						changed &&
+						handleSubmit(e, "/api/profile/set-profile", setEdit, refreshProfile, () => {
+							showNotif("Success edit profile!");
+						})
+					}
+				>
 					<section className="bg-gray-900 rounded-md p-5  text-gray-200 relative">
 						<Image className="rounded-full outline-1 outline-gray-200" src={previewImage} width={500} height={500} alt="profile image" />
 						<label htmlFor="profile" className="flex-col flex justify-center items-center absolute top-5 right-5 left-5 bottom-5 bg-[rgba(0,0,0,0.5)] rounded-full ">
@@ -71,7 +60,18 @@ export default function ProfileTab(props: { name: string; bio: string; refreshPr
 						<HighlightButton type="submit">Save</HighlightButton>
 						<Button
 							onClick={() => {
-								handleDiscard();
+								changed
+									? showConfirm(
+											"Discard changes?",
+											() => {
+												setEdit(false);
+											},
+											() => {
+												setName(name);
+												setBio(bio);
+											}
+									  )
+									: setEdit(false);
 							}}
 						>
 							Discard
