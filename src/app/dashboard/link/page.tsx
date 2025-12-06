@@ -6,7 +6,7 @@ import useSWR from "swr";
 import LoadingStack from "@/components/ui/LoadingStack";
 
 export default function LinkManager() {
-	const { data, mutate, isLoading } = useSWR("/api/links/get-links", fetcher);
+	const { data, mutate, isLoading } = useSWR("/api/links/get", fetcher);
 	const links = data?.data?.links;
 
 	return (

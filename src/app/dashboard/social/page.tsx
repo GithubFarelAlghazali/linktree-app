@@ -6,7 +6,7 @@ import useSWR from "swr";
 import LoadingStack from "@/components/ui/LoadingStack";
 
 export default function SocialManager() {
-	const { data, mutate, isLoading } = useSWR("/api/socials/get-socials", fetcher);
+	const { data, mutate, isLoading } = useSWR("/api/socials/get", fetcher);
 	const social = data?.data?.socials;
 
 	return (

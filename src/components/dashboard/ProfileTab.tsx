@@ -39,7 +39,7 @@ export default function ProfileTab(props: { name: string; bio: string; refreshPr
 					onChange={() => setChanged(true)}
 					onSubmit={(e) =>
 						changed &&
-						handleSubmit(e, "/api/profile/set-profile", setEdit, refreshProfile, () => {
+						handleSubmit(e, "/api/profile/set", setEdit, refreshProfile, () => {
 							showNotif("Success edit profile!");
 						})
 					}
